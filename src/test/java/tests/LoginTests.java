@@ -3,9 +3,10 @@ package tests;
 import io.qameta.allure.Owner;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import testdata.TestData;
+import data.TestData;
 
-import static testdata.TestData.*;
+import static data.ErrorMessages.*;
+import static data.TestData.*;
 
 @Owner("Evgenia Malysheva")
 @DisplayName("Тесты на логин")
@@ -27,7 +28,7 @@ public class LoginTests extends TestBase {
                 .setUsername(STANDARD_USER)
                 .setPassword(TestData.wrongPassword)
                 .clickLoginButton()
-                .getErrorMessage("Username and password do not match any user in this service");
+                .getErrorMessage(INVALID_PASSWORD);
     }
 
     @Test
@@ -37,7 +38,7 @@ public class LoginTests extends TestBase {
                 .setUsername(LOCKED_OUT_USER)
                 .setPassword(STANDARD_PASSWORD)
                 .clickLoginButton()
-                .getErrorMessage("Sorry, this user has been locked out.");
+                .getErrorMessage(USER_IS_LOCKED);
     }
 
     @Test
@@ -47,7 +48,7 @@ public class LoginTests extends TestBase {
                 .setUsername("")
                 .setPassword("")
                 .clickLoginButton()
-                .getErrorMessage("Username is required");
+                .getErrorMessage(USER_NAME_IS_EMPTY);
     }
 
     @Test

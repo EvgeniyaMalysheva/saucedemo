@@ -18,18 +18,19 @@ public class InventoryPage {
     private final ElementsCollection
             inventoryItems = $$("[data-test='inventory-item']");
 
-
     @Step("Проверка загрузки страницы после авторизации")
     public void wasOpened() {
-        pageTitle.shouldHave(text("Products"));
-        inventoryItems.shouldHave(sizeGreaterThan(0));
+        pageTitle.shouldHave(text("Products")
+                .because("Не отображается заголовок страницы"));
+        inventoryItems.shouldHave(sizeGreaterThan(0)
+                .because("Не отображается список товаров"));
     }
 
     @Step("Ожидание загрузки страницы")
     public InventoryPage isWaitingToOpen() {
-        pageTitle.shouldBe(visible, Duration.ofSeconds(15));
+        pageTitle.shouldBe(visible.because("Страница не загрузилась"),
+                Duration.ofSeconds(15));
 
         return this;
     }
-
 }

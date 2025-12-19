@@ -2,6 +2,7 @@ package pages;
 
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
+import data.ErrorMessages;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
@@ -13,17 +14,18 @@ public class LoginPage {
             usernameInput = $("[data-test='username']"),
             passwordInput = $("[data-test='password']"),
             loginButton = $("[data-test='login-button']"),
-            epicSadface = $("[data-test='error']");
+            epicSadFace = $("[data-test='error']");
 
     @Step("Открываем страницу логина")
     public LoginPage openLoginPage() {
         open("/");
-        $(".login_logo").shouldHave(text("Swag Labs"));
+        $(".login_logo").shouldHave(text("Swag Labs")
+                .because("Страница логина не загрузилась"));
 
         return this;
     }
 
-    @Step("Ввод имени пользователя {{username}}")
+    @Step("Ввод имени пользователя {username}")
     public LoginPage setUsername(String username) {
         usernameInput.setValue(username);
 
@@ -44,9 +46,10 @@ public class LoginPage {
         return this;
     }
 
-    @Step("Вывод сообщения об ошибке")
-    public void getErrorMessage(String error) {
-        epicSadface.shouldHave(text(error));
+    @Step("Вывод сообщения об ошибке: {error}")
+    public void getErrorMessage(ErrorMessages error) {
+        epicSadFace.shouldHave(text(error.getMessage())
+                .because("Текст ошибки не совпадает"));
     }
 
 }
