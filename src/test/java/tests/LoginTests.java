@@ -3,7 +3,6 @@ package tests;
 import io.qameta.allure.Owner;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import data.TestData;
 
 import static data.ErrorMessages.*;
 import static data.TestData.*;
@@ -26,7 +25,7 @@ public class LoginTests extends TestBase {
     public void wrongPasswordLoginTest() {
         loginPage.openLoginPage()
                 .setUsername(STANDARD_USER)
-                .setPassword(TestData.wrongPassword)
+                .setPassword(wrongPassword)
                 .clickLoginButton()
                 .getErrorMessage(INVALID_PASSWORD);
     }
